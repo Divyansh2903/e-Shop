@@ -24,6 +24,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final FirebaseService _firebaseService = FirebaseService();
+  final ValueNotifier<bool> _isLoading = ValueNotifier(false);
+
+  final ValueNotifier<bool> displayPassword = ValueNotifier(false);
 
   @override
   void dispose() {
@@ -61,6 +64,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   void _signup() async {
     if (_formKey.currentState!.validate()) {
+      _isLoading.value = true;
       User? user = await _firebaseService.signUpWithEmailPassword(
         emailController.text,
         passwordController.text,
@@ -79,6 +83,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       } else {
         showSnackBar(context, "Error signing up");
       }
+      _isLoading.value = false;
     }
   }
 
@@ -87,87 +92,118 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: IntrinsicHeight(
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppSpacing.height(10),
-                        const Text(
-                          "e-Shop",
-                          style: TextStyle(
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25,
-                          ),
-                        ),
-                        const Spacer(),
-                        GlobalTextField(
-                          controller: nameController,
-                          hintText: "Name",
-                          validator: _validateName,
-                        ),
-                        AppSpacing.height(20),
-                        GlobalTextField(
-                          controller: emailController,
-                          hintText: "Email",
-                          validator: _validateEmail,
-                        ),
-                        AppSpacing.height(20),
-                        GlobalTextField(
-                          controller: passwordController,
-                          hintText: "Password",
-                          obscureText: true,
-                          validator: _validatePassword,
-                        ),
-                        const Spacer(),
-                        Center(
-                          child: PrimaryButton(
-                            text: "Signup",
-                            onTap: _signup,
-                          ),
-                        ),
-                        AppSpacing.height(20),
-                        Center(
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                const TextSpan(
-                                  text: "Already have an account? ",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 16),
+        child: ValueListenableBuilder<bool>(
+            valueListenable: _isLoading,
+            builder: (context, isLoading, child) {
+              return isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SingleChildScrollView(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                                minHeight: constraints.maxHeight),
+                            child: IntrinsicHeight(
+                              child: Form(
+                                key: _formKey,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AppSpacing.height(10),
+                                    const Text(
+                                      "e-Shop",
+                                      style: TextStyle(
+                                        color: AppColors.primaryColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    GlobalTextField(
+                                      controller: nameController,
+                                      hintText: "Name",
+                                      validator: _validateName,
+                                    ),
+                                    AppSpacing.height(20),
+                                    GlobalTextField(
+                                      controller: emailController,
+                                      hintText: "Email",
+                                      validator: _validateEmail,
+                                    ),
+                                    AppSpacing.height(20),
+                                    ValueListenableBuilder<bool>(
+                                        valueListenable: displayPassword,
+                                        builder: (context, value, child) {
+                                          return Stack(
+                                            alignment: Alignment.centerRight,
+                                            children: [
+                                              GlobalTextField(
+                                                controller: passwordController,
+                                                hintText: "Password",
+                                                obscureText: !value,
+                                                validator: _validatePassword,
+                                              ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  displayPassword.value =
+                                                      !displayPassword.value;
+                                                },
+                                                icon: !value
+                                                    ? const Icon(
+                                                        Icons.visibility_off)
+                                                    : const Icon(
+                                                        Icons.visibility),
+                                              ),
+                                            ],
+                                          );
+                                        }),
+                                    const Spacer(),
+                                    Center(
+                                      child: PrimaryButton(
+                                        text: "Signup",
+                                        onTap: _signup,
+                                      ),
+                                    ),
+                                    AppSpacing.height(20),
+                                    Center(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            const TextSpan(
+                                              text: "Already have an account? ",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16),
+                                            ),
+                                            TextSpan(
+                                              text: "Login",
+                                              style: const TextStyle(
+                                                  color: AppColors.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () {
+                                                  navigate(context,
+                                                      const LoginScreen());
+                                                },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    AppSpacing.height(50),
+                                  ],
                                 ),
-                                TextSpan(
-                                  text: "Login",
-                                  style: const TextStyle(
-                                      color: AppColors.primaryColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      navigate(context, const LoginScreen());
-                                    },
-                                ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                        AppSpacing.height(50),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
+                        );
+                      },
+                    );
+            }),
       ),
     );
   }

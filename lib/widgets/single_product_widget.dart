@@ -67,6 +67,7 @@ class SingleProductWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: CachedNetworkImage(
+                    key: Key(product.thumbnail),
                     imageUrl: product.thumbnail,
                   )),
             ),

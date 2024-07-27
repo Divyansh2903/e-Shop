@@ -36,10 +36,9 @@ class MyApp extends StatelessWidget {
         print(authProvider.isAuthenticated);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: HomeScreen(),
-          // home: authProvider.isAuthenticated
-          //     ? HomeScreen()
-          //     : RegistrationScreen(),
+          home: authProvider.isAuthenticated
+              ? const HomeScreen()
+              : const RegistrationScreen(),
           theme: ThemeData(fontFamily: 'Poppins'),
         );
       }),
