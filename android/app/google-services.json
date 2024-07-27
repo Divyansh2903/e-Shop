@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "843980391257",
+    "project_id": "e-shop-47800",
+    "storage_bucket": "e-shop-47800.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843980391257:android:0c8fcd861d44b2c4250248",
+        "android_client_info": {
+          "package_name": "com.example.pingolearn_assignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy7XDXRC9k0N8h-38G1eVTlct-XavW-1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
