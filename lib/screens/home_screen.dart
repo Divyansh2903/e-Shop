@@ -89,8 +89,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 return LoadingContainer();
               },
             );
+          } else if (!productProvider.hasInternet) {
+            return const Center(child: Text('No internet connection!'));
           } else if (productProvider.products.isEmpty) {
-            return const Center(child: Text('No products available'));
+            return const Center(child: Text('Nothing to show here🙁'));
           } else {
             return LiquidPullToRefresh(
               backgroundColor: AppColors.secondaryColor,
