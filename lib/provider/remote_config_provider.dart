@@ -20,13 +20,13 @@ class RemoteConfigProvider with ChangeNotifier {
         fetchTimeout: Duration(seconds: 10),
       ));
 
-      await _fetchAndActivate();
+      await fetchAndActivate();
     } catch (e) {
       print('Error initializing Remote Config: $e');
     }
   }
 
-  Future<void> _fetchAndActivate() async {
+  Future<void> fetchAndActivate() async {
     try {
       await _remoteConfig.fetchAndActivate();
       _isSale = _remoteConfig.getBool('isSale');

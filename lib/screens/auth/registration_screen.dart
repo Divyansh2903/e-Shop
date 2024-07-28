@@ -57,6 +57,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your password';
+    } else if (value.length < 6) {
+      return 'Password must be at least 6 characters long';
     }
 
     return null;
@@ -66,8 +68,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     if (_formKey.currentState!.validate()) {
       _isLoading.value = true;
       User? user = await _firebaseService.signUpWithEmailPassword(
-        emailController.text,
-        passwordController.text,
+        emailController.text.trim(),
+        passwordController.text.trim(),
       );
 
       if (user != null) {

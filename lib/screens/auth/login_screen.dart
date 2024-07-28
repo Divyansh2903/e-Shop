@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState?.validate() ?? false) {
       _isLoading.value = true;
       User? user = await _firebaseService.signInWithEmailPassword(
-          emailController.text, passwordController.text);
+          emailController.text.trim(), passwordController.text.trim());
 
       print(user);
       if (user == null) {

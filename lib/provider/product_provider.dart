@@ -36,4 +36,11 @@ class ProductProvider with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
+
+  Future<void> refreshProducts() async {
+    _products = [];
+    _currentPage = 0;
+    _hasMore = true;
+    await fetchProducts();
+  }
 }

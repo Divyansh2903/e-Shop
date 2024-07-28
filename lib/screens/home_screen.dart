@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pingolearn_assignment/constants/colors.dart';
 import 'package:pingolearn_assignment/provider/remote_config_provider.dart';
 import 'package:pingolearn_assignment/provider/product_provider.dart';
@@ -32,6 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
         _scrollController.position.maxScrollExtent) {
       context.read<ProductProvider>().fetchProducts();
     }
+  }
+
+  Future<void> _onRefresh() async {
+    await context.read<RemoteConfigProvider>().fetchAndActivate();
+    await context.read<ProductProvider>().refreshProducts();
   }
 
   @override
@@ -86,27 +92,32 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (productProvider.products.isEmpty) {
             return const Center(child: Text('No products available'));
           } else {
-            return GridView.builder(
-              controller: _scrollController,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.48,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 10,
+            return LiquidPullToRefresh(
+              backgroundColor: AppColors.secondaryColor,
+              color: const Color.fromARGB(255, 190, 202, 224),
+              onRefresh: _onRefresh,
+              child: GridView.builder(
+                controller: _scrollController,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.48,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 10,
+                ),
+                itemCount: productProvider.products.length +
+                    (productProvider.hasMore ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (index < productProvider.products.length) {
+                    final product = productProvider.products[index];
+                    return SingleProductWidget(
+                      isSale: remoteConfigProvider.isSale,
+                      product: product,
+                    );
+                  } else {
+                    return LoadingContainer();
+                  }
+                },
               ),
-              itemCount: productProvider.products.length +
-                  (productProvider.hasMore ? 1 : 0),
-              itemBuilder: (context, index) {
-                if (index < productProvider.products.length) {
-                  final product = productProvider.products[index];
-                  return SingleProductWidget(
-                    isSale: remoteConfigProvider.isSale,
-                    product: product,
-                  );
-                } else {
-                  return LoadingContainer();
-                }
-              },
             );
           }
         },
