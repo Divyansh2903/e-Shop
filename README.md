@@ -1,6 +1,8 @@
 # pingolearn_assignment
 
 A new Flutter project.
+The apk file is loacated in /apk
+
 
 ## Getting Started
 
