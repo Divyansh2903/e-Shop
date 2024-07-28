@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,6 @@ import 'package:flutter/material.dart';
 class RemoteConfigProvider with ChangeNotifier {
   final FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
   bool _isSale = false;
-  Timer? _timer;
 
   bool get isSale => _isSale;
 
@@ -16,8 +17,8 @@ class RemoteConfigProvider with ChangeNotifier {
   Future<void> _initializeRemoteConfig() async {
     try {
       await _remoteConfig.setConfigSettings(RemoteConfigSettings(
-        minimumFetchInterval: Duration(seconds: 5),
-        fetchTimeout: Duration(seconds: 10),
+        minimumFetchInterval: const Duration(seconds: 5),
+        fetchTimeout: const Duration(seconds: 10),
       ));
 
       await fetchAndActivate();
@@ -34,11 +35,5 @@ class RemoteConfigProvider with ChangeNotifier {
     } catch (e) {
       print('Error fetching and activating Remote Config: $e');
     }
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
   }
 }

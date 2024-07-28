@@ -5,9 +5,7 @@ import 'package:pingolearn_assignment/firebase_options.dart';
 import 'package:pingolearn_assignment/provider/auth_provider.dart';
 import 'package:pingolearn_assignment/provider/product_provider.dart';
 import 'package:pingolearn_assignment/provider/remote_config_provider.dart';
-import 'package:pingolearn_assignment/screens/auth/login_screen.dart';
 import 'package:pingolearn_assignment/screens/auth/registration_screen.dart';
-import 'package:pingolearn_assignment/screens/detailed_product_screen.dart';
 import 'package:pingolearn_assignment/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +34,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductProvider()),
       ],
       child: Consumer<AuthProvider>(builder: (context, authProvider, _) {
-        print(authProvider.isAuthenticated);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: authProvider.isAuthenticated

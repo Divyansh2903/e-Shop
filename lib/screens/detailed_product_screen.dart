@@ -128,7 +128,7 @@ class DetailedProductScreen extends StatelessWidget {
 
           if (constraints.maxHeight < 600) {
             return SingleChildScrollView(
-                child: Container(
+                child: SizedBox(
                     height: MediaQuery.of(context).size.height,
                     child: content));
           } else {

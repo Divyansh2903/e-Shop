@@ -2,6 +2,8 @@
 //
 //     final product = productFromJson(jsonString);
 
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 Product productFromJson(String str) => Product.fromJson(json.decode(str));

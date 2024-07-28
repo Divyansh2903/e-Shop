@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pingolearn_assignment/constants/colors.dart';
@@ -88,11 +87,11 @@ class SingleProductWidget extends StatelessWidget {
               child: Text(
                 product.description,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontWeight: FontWeight.w500),
+                style: const TextStyle(fontWeight: FontWeight.w500),
                 maxLines: 3,
               ),
             ),
-            Spacer(
+            const Spacer(
               flex: 2,
             ),
             Padding(
@@ -133,7 +132,7 @@ class SingleProductWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
           ],

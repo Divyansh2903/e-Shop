@@ -1,9 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pingolearn_assignment/constants/colors.dart';
 import 'package:pingolearn_assignment/screens/auth/login_screen.dart';
-import 'package:pingolearn_assignment/screens/home_screen.dart';
+
 import 'package:pingolearn_assignment/services/firebase_services.dart';
 import 'package:pingolearn_assignment/utils/app_spacing.dart';
 import 'package:pingolearn_assignment/utils/navigation.dart';

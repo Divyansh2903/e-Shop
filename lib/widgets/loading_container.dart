@@ -45,7 +45,7 @@ class LoadingContainer extends StatelessWidget {
           ),
           AppSpacing.height(5),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Shimmer.fromColors(
               baseColor: Colors.grey[300]!,
               highlightColor: Colors.grey[100]!,
@@ -58,7 +58,7 @@ class LoadingContainer extends StatelessWidget {
           ),
           AppSpacing.height(10),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Shimmer.fromColors(
               baseColor: Colors.grey[300]!,
               highlightColor: Colors.grey[100]!,
@@ -69,11 +69,11 @@ class LoadingContainer extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(
+          const Spacer(
             flex: 2,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -99,7 +99,7 @@ class LoadingContainer extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
         ],

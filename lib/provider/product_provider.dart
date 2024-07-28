@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pingolearn_assignment/models/product_model.dart';
 import 'package:pingolearn_assignment/services/api_manager.dart';
-import 'package:pingolearn_assignment/utils/showSnackbar.dart';
 
 class ProductProvider with ChangeNotifier {
   List<ProductElement> _products = [];
@@ -49,6 +48,7 @@ class ProductProvider with ChangeNotifier {
       _products.addAll(newProducts);
       _currentPage++;
     } catch (e) {
+      // ignore: avoid_print
       print('Error fetching products: $e');
       _hasMore = false;
     }

@@ -1,13 +1,11 @@
-import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pingolearn_assignment/constants/colors.dart';
-import 'package:pingolearn_assignment/screens/auth/registration_screen.dart';
+
 import 'package:pingolearn_assignment/services/firebase_services.dart';
 import 'package:pingolearn_assignment/utils/app_spacing.dart';
-import 'package:pingolearn_assignment/utils/navigation.dart';
+
 import 'package:pingolearn_assignment/utils/showSnackbar.dart';
 import 'package:pingolearn_assignment/widgets/primary_button.dart';
 import 'package:pingolearn_assignment/widgets/textfield.dart';
@@ -58,13 +56,14 @@ class _LoginScreenState extends State<LoginScreen> {
       User? user = await _firebaseService.signInWithEmailPassword(
           emailController.text.trim(), passwordController.text.trim());
 
-      print(user);
       if (user == null) {
         showSnackBar(
+          // ignore: use_build_context_synchronously
           context,
           "Please enter correct email and password",
         );
       } else {
+        // ignore: use_build_context_synchronously
         Navigator.pop(context);
       }
       _isLoading.value = false;

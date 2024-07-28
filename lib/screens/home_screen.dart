@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _onRefresh() async {
     await context.read<RemoteConfigProvider>().fetchAndActivate();
+    // ignore: use_build_context_synchronously
     await context.read<ProductProvider>().refreshProducts();
   }
 
@@ -49,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final w = size.width;
     final h = size.height;
 
     return Scaffold(
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               itemCount: 4,
               itemBuilder: (context, index) {
-                return LoadingContainer();
+                return const LoadingContainer();
               },
             );
           } else if (!productProvider.hasInternet) {
@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       product: product,
                     );
                   } else {
-                    return LoadingContainer();
+                    return const LoadingContainer();
                   }
                 },
               ),

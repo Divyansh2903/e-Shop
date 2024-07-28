@@ -8,7 +8,6 @@ class AuthProvider with ChangeNotifier {
   AuthProvider() {
     _auth.authStateChanges().listen((User? user) {
       _user = user;
-      print("STATE CHANGED!!!!!!!!!!!!!!!!");
       notifyListeners();
     });
   }

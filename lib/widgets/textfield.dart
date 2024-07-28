@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:pingolearn_assignment/constants/colors.dart';
 
 InputDecoration xInputDecoration({String? hintText}) => InputDecoration(
       enabledBorder: OutlineInputBorder(
@@ -37,6 +35,7 @@ class GlobalTextField extends StatelessWidget {
   final int minLines;
   final int maxLines;
 
+  // ignore: use_super_parameters
   const GlobalTextField({
     Key? key,
     required this.controller,
