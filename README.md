@@ -1,4 +1,4 @@
-# pingolearn_assignment
+# e-Shop
 
 A new Flutter project.
 The apk file is loacated in /apk
